@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="canopy">
+  <title>小規模店舗・カフェ向け ホームページ制作サービスのご案内｜Studio Miraie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (Canopy earth strata) */
+      --background: #faf6ef;
+      --surface-container-low: #f0eae0;
+      --surface-container: #e8e0d2;
+      --surface-container-high: #ddd3c2;
+
+      /* Ink */
+      --on-surface: #2a302b;
+      --on-surface-variant: #4a524b;
+
+      /* Lines */
+      --outline: #737872;
+      --outline-variant: #cbc5b8;
+
+      /* Accents */
+      --primary: #366948;
+      --on-primary: #ffffff;
+      --primary-container: #d8efe0;
+      --on-primary-container: #1f4d30;
+      --secondary: #5c635c;
+      --tertiary: #8f5822;
+      --tertiary-container: #f2d4a7;
+      --on-tertiary-container: #6e3f0c;
+      --error: #b83230;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #366948;
+      --data-2: #8f5822;
+      --data-3: #a85438;
+      --data-4: #4b6b78;
+      --data-context: #b5b0a3;
+
+      /* Fonts (Japanese families paired with Canopy voice) */
+      --font-headline: 'Shippori Mincho', serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+      --font-label: 'Geist Mono', 'Noto Sans JP', monospace;
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 1rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
+      --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.09);
+      --border-soft: 1px solid rgb(203 197 184 / 0.65);
+      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.18);
+
+      /* Shared tokens */
+      --positive: #366948;
+      --warning: #8f5822;
+      --focus: #366948;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.125rem, 1.35rem + 2.6vw, 3.25rem);
+      --headline-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.125rem);
+      --subhead-size: clamp(1.125rem, 1.02rem + 0.4vw, 1.35rem);
+      --body-size: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+      --label-size: 0.75rem;
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+      box-shadow: var(--focus-glow);
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+      max-width: 1040px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography helpers */
+    .kicker {
+      font-family: var(--font-body);
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      margin: 0 0 var(--space-sm);
+      display: inline-block;
+    }
+
+    .mono-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--secondary);
+    }
+
+    h1 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--display-size);
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+      margin: 0 0 var(--space-md);
+      color: var(--on-surface);
+    }
+
+    h2 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--headline-size);
+      line-height: 1.3;
+      margin: 0 0 var(--space-md);
+      color: var(--on-surface);
+    }
+
+    h3 {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.4;
+      margin: 0 0 var(--space-sm);
+      color: var(--on-surface);
+    }
+
+    p {
+      margin: 0 0 var(--space-md);
+      max-width: 66ch;
+      color: var(--on-surface);
+    }
+    p:last-child { margin-bottom: 0; }
+
+    .text-muted { color: var(--on-surface-variant); }
+
+    /* Hero / Header */
+    .hero {
+      padding-bottom: var(--space-lg);
+      border-bottom: var(--border-soft);
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    .pill-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface-variant);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .pill-tag.is-warm {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-weight: 700;
+    }
+    .pill-tag.is-leaf {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-weight: 700;
+    }
+
+    /* Quick Jump Navigation */
+    .toc-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+    }
+
+    .toc-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      color: var(--on-surface);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 700;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .toc-link:hover {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Sections */
+    .guide-section {
+      display: grid;
+      gap: var(--space-lg);
+      padding-top: var(--space-lg);
+      scroll-margin-top: var(--space-lg);
+    }
+    .guide-section + .guide-section {
+      border-top: var(--border-soft);
+      padding-top: var(--space-2xl);
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+
+    .card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .card.is-interactive {
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .card.is-leaf-highlight {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .card.is-leaf-highlight h3,
+    .card.is-leaf-highlight p,
+    .card.is-leaf-highlight .text-muted {
+      color: var(--on-primary-container);
+    }
+
+    .card-band {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+
+    /* Key figures */
+    .figure-value {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: clamp(1.625rem, 1.3rem + 1vw, 2.25rem);
+      line-height: 1.2;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--on-surface);
+    }
+    .figure-unit {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+    }
+    .figure-note {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--tertiary);
+    }
+
+    /* Lists */
+    .clean-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .clean-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      line-height: 1.65;
+    }
+    .list-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      margin-top: 3px;
+      color: var(--primary);
+    }
+    .list-icon.is-ochre {
+      color: var(--tertiary);
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-sm) var(--space-md);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9375rem;
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--secondary);
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: 2px solid var(--outline-variant);
+      white-space: nowrap;
+    }
+    td {
+      padding: var(--space-md) var(--space-sm);
+      border-bottom: var(--border-soft);
+      vertical-align: top;
+      font-variant-numeric: tabular-nums;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .price-strong {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Canopy Step / Cycle Strip */
+    .step-strip-panel {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .step-strip-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .step-cells {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .step-btn {
+      min-height: 52px;
+      padding: var(--space-sm) var(--space-xs);
+      border: 0;
+      border-radius: var(--rounded);
+      background-color: var(--surface-container-high);
+      color: var(--on-surface);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      text-align: center;
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .step-btn:hover {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      transform: translateY(-1px);
+    }
+    .step-btn.is-prep {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .step-btn.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .step-num {
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .step-name {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+    .step-detail-box {
+      background-color: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    /* Interactive Cost Simulator */
+    .simulator-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .sim-controls {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .control-group {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .control-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+    .seg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
+    .seg-btn {
+      min-height: 46px;
+      padding: var(--space-sm) var(--space-md);
+      border: var(--border-soft);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+    .seg-btn:hover {
+      background-color: var(--surface-container);
+    }
+    .seg-btn.is-selected {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .seg-btn .seg-sub {
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.88;
+    }
+
+    .sim-output {
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .sim-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 1px solid rgb(31 77 48 / 0.16);
+    }
+    .sim-row:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .sim-row-label {
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .sim-row-val {
+      font-family: var(--font-headline);
+      font-size: 1.1875rem;
+      font-weight: 600;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Checklist */
+    .checklist-card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: var(--space-lg);
+    }
+    .checklist-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      border-radius: var(--rounded-full);
+      background-color: var(--surface-container-high);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .check-items {
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      cursor: pointer;
+      min-height: 52px;
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+    .check-item:hover {
+      background-color: var(--surface-container);
+    }
+    .check-item.is-checked {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .check-box {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    .check-text {
+      display: grid;
+      gap: 2px;
+    }
+    .check-title {
+      font-weight: 700;
+      font-size: 0.96875rem;
+    }
+    .check-desc {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+    }
+    .check-item.is-checked .check-desc {
+      color: var(--on-primary-container);
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg);
+      border: 0;
+      border-radius: var(--rounded);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+    .btn-secondary {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover {
+      background-color: var(--surface-container-high);
+    }
+    .inline-status {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      min-height: 1.5em;
+    }
+
+    /* Callout banner */
+    .callout-warm {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .callout-warm h3,
+    .callout-warm p {
+      color: var(--on-tertiary-container);
+    }
+
+    /* Footer */
+    .page-footer {
+      border-top: var(--border-soft);
+      padding-top: var(--space-lg);
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      display: grid;
+      gap: var(--space-xs);
+    }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 820px) {
+      .simulator-shell {
+        grid-template-columns: 1fr;
+      }
+      .step-cells {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-lg) var(--space-md) var(--space-2xl);
+        gap: var(--space-lg);
+      }
+      .step-cells {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid">
+    <!-- Hero -->
+    <header class="hero">
+      <span class="kicker">Studio Miraie｜小規模店舗・カフェオーナー様向けご案内</span>
+      <h1>はじめてのホームページ制作<br>サービスと条件のわかりやすいガイド</h1>
+      <p>
+        「ホームページを作りたいけれど、専門用語ばかりでよく分からない」「あとから高額な請求が来ないか不安」というお店のために、制作内容・料金・お支払い方法・公開後の維持費まで、大切なルールを1ページにまとめました。
+      </p>
+      <div class="hero-meta-row">
+        <span class="pill-tag is-leaf">月額の維持費 基本0円</span>
+        <span class="pill-tag is-warm">先着3店舗 モニター価格あり</span>
+        <span class="pill-tag">オンライン完結・電話営業なし</span>
+      </div>
+    </header>
+
+    <!-- In-page navigation -->
+    <nav class="toc-bar" aria-label="ページ内の目次">
+      <a class="toc-link" href="#sec-1">1. サービス内容</a>
+      <a class="toc-link" href="#sec-2">2. 料金・モニター条件</a>
+      <a class="toc-link" href="#sec-3">3. お支払いと進め方</a>
+      <a class="toc-link" href="#sec-4">4. 納期・修正・素材</a>
+      <a class="toc-link" href="#sec-5">5. 月額費用と保守プラン</a>
+      <a class="toc-link" href="#sec-6">6. 申し込み前チェックリスト</a>
+    </nav>
+
+    <!-- Section 1: サービスの内容 -->
+    <section id="sec-1" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 01｜サービス内容</span>
+        <h2>お店に合わせて選べる2つの制作プラン</h2>
+        <p>
+          Studio Miraie では、小規模店舗向けの「簡易LP／1ページサイト」と、カフェ向けの「カフェ向けホームページパッケージ」の2種類をご用意しています。どちらも<strong>制作の下地を AI でスピーディに作成し、全体の構成と最終確認は人の目で行う</strong>ため、品質を保ちながら無理のない価格でご提供できます。
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <div>
+            <span class="mono-label">PLAN A</span>
+            <h3>簡易LP／1ページサイト</h3>
+          </div>
+          <p class="text-muted">
+            お店の基本情報や予約への案内を、縦にスクロールして読める1ページにすっきりまとめるプランです。
+          </p>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>1ページサイトの設計・制作・公開（スマートフォンでの見やすさ最適化込み）</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>予約への導線設計（電話・LINE・予約フォームへの案内ボタン設置）</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>Google マップ・Instagram へのリンク設置</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>検索で見つけてもらいやすくするための基本設定（※タイトルや説明文などの基本設定を行います。検索順位や集客数の保証はしておりません）</span>
+            </li>
+          </ul>
+          <div class="card-band">
+            <span class="mono-label">納期目安（素材がそろってから）</span>
+            <div class="figure-value">7〜10<span class="figure-unit"> 日</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div>
+            <span class="mono-label">PLAN B</span>
+            <h3>カフェ向けホームページパッケージ</h3>
+          </div>
+          <p class="text-muted">
+            カフェのお店の雰囲気や魅力をしっかり届けたいオーナー様向けのパッケージプランです。
+          </p>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>カフェのお店向けに設計されたホームページ制作パッケージ</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>簡易LPよりもじっくり構成・制作を行うため、納期は14〜21日が目安となります</span>
+            </li>
+            <li>
+              <i data-lucide="info" class="list-icon is-ochre" aria-hidden="true"></i>
+              <span>ご提供いただく写真・メニュー・料金表などの素材をもとに、人の手で構成と最終確認を行います</span>
+            </li>
+          </ul>
+          <div class="card-band">
+            <span class="mono-label">納期目安（素材がそろってから）</span>
+            <div class="figure-value">14〜21<span class="figure-unit"> 日</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Section 2: 料金とモニター条件 -->
+    <section id="sec-2" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 02｜料金とモニター制度</span>
+        <h2>料金はすべて税込・全窓口で統一しています</h2>
+        <p>
+          Coconala などの制作サイト経由でも、Instagram のダイレクトメッセージや直接のご契約でも、<strong>ご案内する価格と条件はすべて同じ</strong>です。先着3店舗さま限定でモニター価格をご利用いただけます。
+        </p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>プラン名</th>
+              <th>モニター価格（税込・先着3店舗）</th>
+              <th>通常価格（税込）</th>
+              <th>納期目安（素材がそろってから）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>簡易LP／1ページサイト</strong></td>
+              <td><span class="price-strong">39,000円</span></td>
+              <td>54,800円</td>
+              <td>7〜10日</td>
+            </tr>
+            <tr>
+              <td><strong>カフェ向けホームページパッケージ</strong></td>
+              <td><span class="price-strong">98,000円</span></td>
+              <td>148,000円</td>
+              <td>14〜21日</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-warm">
+        <h3>モニター価格の条件（全窓口共通）</h3>
+        <ul class="clean-list">
+          <li>
+            <i data-lucide="check-circle-2" class="list-icon is-ochre" aria-hidden="true"></i>
+            <span><strong>制作事例としての紹介</strong>：完成したサイトを、Studio Miraie の実績ページ・SNS・出品ページで紹介させていただくこと</span>
+          </li>
+          <li>
+            <i data-lucide="check-circle-2" class="list-icon is-ochre" aria-hidden="true"></i>
+            <span><strong>ひと言のご感想</strong>：完成後に簡単なご感想をお寄せいただくこと</span>
+          </li>
+          <li>
+            <i data-lucide="shield-check" class="list-icon" aria-hidden="true"></i>
+            <span><strong>Google 口コミなどの投稿は一切不要です</strong>：口コミ投稿がモニター条件になることはありません。</span>
+          </li>
+        </ul>
+        <p>
+          ※ 先着3店舗のモニター枠が埋まり次第、通常価格（簡易LP 54,800円／カフェ向けパッケージ 148,000円）でのご案内になります。
+        </p>
+      </div>
+    </section>
+
+    <!-- Section 3: お支払いの条件と進め方 -->
+    <section id="sec-3" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 03｜お支払い条件と進め方</span>
+        <h2>着手時50%・公開後50%の2回払い（直接契約の場合）</h2>
+        <p>
+          お支払い方法やキャンセル時の返金ルールも、事前にはっきり決めています。ご連絡はメールまたはチャットによる<strong>オンラインのみ</strong>で行い、お電話での営業や催促はいたしません。
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div>
+            <span class="mono-label">DIRECT CONTRACT</span>
+            <h3>直接ご契約の場合（銀行振込）</h3>
+          </div>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="landmark" class="list-icon" aria-hidden="true"></i>
+              <span><strong>お支払い回数と時期</strong>：制作を始める前（着手時）に <strong>50%</strong>、公開（納品）後に残りの <strong>50%</strong> をお振り込みいただきます。</span>
+            </li>
+            <li>
+              <i data-lucide="rotate-ccw" class="list-icon" aria-hidden="true"></i>
+              <span><strong>着手前のキャンセル</strong>：制作を始める前であれば <strong>全額返金</strong> いたします。</span>
+            </li>
+            <li>
+              <i data-lucide="file-minus" class="list-icon is-ochre" aria-hidden="true"></i>
+              <span><strong>着手後のキャンセル</strong>：制作が始まったあとは、それまでに進んだ作業分を差し引いて返金いたします。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div>
+            <span class="mono-label">PLATFORM</span>
+            <h3>Coconala 等のプラットフォーム経由の場合</h3>
+          </div>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="credit-card" class="list-icon" aria-hidden="true"></i>
+              <span><strong>規約・お支払い方法</strong>：各プラットフォーム（Coconala 等）の規約および指定のお支払い方法に従ってお手続きいただきます。</span>
+            </li>
+            <li>
+              <i data-lucide="equal" class="list-icon" aria-hidden="true"></i>
+              <span><strong>制作内容・モニター条件は同じ</strong>：どの窓口からのお申し込みでも、制作範囲やモニター価格・条件は統一されています。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Canopy Cycle Strip adapted for 6-step process -->
+      <div class="step-strip-panel" aria-label="制作の進め方ステップ">
+        <div class="step-strip-header">
+          <div>
+            <span class="mono-label">WORKFLOW STEPS</span>
+            <h3 style="margin: 0;">お申し込みから公開までの6ステップ（クリックして詳細を確認）</h3>
+          </div>
+          <span class="mono-label">オンライン完結・電話営業なし</span>
+        </div>
+
+        <div class="step-cells" role="tablist" aria-label="制作ステップ">
+          <button type="button" class="step-btn is-prep is-active" onclick="selectStep(0)" id="step-btn-0" role="tab" aria-selected="true">
+            <span class="step-num">STEP 01</span>
+            <span class="step-name">ご相談・確認</span>
+          </button>
+          <button type="button" class="step-btn is-prep" onclick="selectStep(1)" id="step-btn-1" role="tab" aria-selected="false">
+            <span class="step-num">STEP 02</span>
+            <span class="step-name">着手時入金</span>
+          </button>
+          <button type="button" class="step-btn is-prep" onclick="selectStep(2)" id="step-btn-2" role="tab" aria-selected="false">
+            <span class="step-num">STEP 03</span>
+            <span class="step-name">素材ご提供</span>
+          </button>
+          <button type="button" class="step-btn" onclick="selectStep(3)" id="step-btn-3" role="tab" aria-selected="false">
+            <span class="step-num">STEP 04</span>
+            <span class="step-name">制作作業</span>
+          </button>
+          <button type="button" class="step-btn" onclick="selectStep(4)" id="step-btn-4" role="tab" aria-selected="false">
+            <span class="step-num">STEP 05</span>
+            <span class="step-name">確認・修正</span>
+          </button>
+          <button type="button" class="step-btn" onclick="selectStep(5)" id="step-btn-5" role="tab" aria-selected="false">
+            <span class="step-num">STEP 06</span>
+            <span class="step-name">公開・残金</span>
+          </button>
+        </div>
+
+        <div class="step-detail-box" id="step-detail-box" role="tabpanel">
+          <span class="mono-label" id="step-detail-kicker">STEP 01｜ご相談・条件の確認</span>
+          <h3 id="step-detail-title" style="margin: 0;">メールまたはチャットで条件を確認します</h3>
+          <p id="step-detail-body">
+            ご希望のプラン（簡易LP または カフェ向けパッケージ）と、モニター枠の空き状況・条件を確認します。対応はすべてオンライン（メール／チャット）のみで、お電話での営業や催促は行いません。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: 納期と修正・素材のルール -->
+    <section id="sec-4" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 04｜納期・修正・素材</span>
+        <h2>納期は素材がそろってから7〜10日。公開前に無料修正1回付き</h2>
+        <p>
+          スムーズに制作を進めるため、納期の数え方や写真・文章の準備方法、修正できる範囲をあらかじめ明確にしています。
+        </p>
+      </div>
+
+      <div class="card-grid-3">
+        <div class="card">
+          <span class="mono-label">DELIVERY</span>
+          <h3>納期の数え方</h3>
+          <p>
+            制作日数は<strong>「写真やメニューなどの素材がすべてそろってから」</strong>のカウントになります。
+          </p>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="clock" class="list-icon" aria-hidden="true"></i>
+              <span>簡易LP／1ページサイト：<strong>7〜10日</strong></span>
+            </li>
+            <li>
+              <i data-lucide="clock" class="list-icon" aria-hidden="true"></i>
+              <span>カフェ向けパッケージ：<strong>14〜21日</strong></span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="mono-label">REVISION</span>
+          <h3>修正のルール</h3>
+          <p>
+            ホームページを公開する前に、仕上がりをご確認いただくタイミングがあります。
+          </p>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="pencil" class="list-icon" aria-hidden="true"></i>
+              <span><strong>無料修正 1回</strong>：文章の修正や写真の差し替えなど、軽微な調整に対応します。</span>
+            </li>
+            <li>
+              <i data-lucide="alert-circle" class="list-icon is-ochre" aria-hidden="true"></i>
+              <span><strong>構成の大幅な変更</strong>：全体の配置や構成を大きく変える場合は、別途お見積りとなります。</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="mono-label">MATERIALS</span>
+          <h3>写真・メニューの素材</h3>
+          <p>
+            写真・メニュー・料金表などの素材は、原則としてお店側からご提供いただきます。
+          </p>
+          <ul class="clean-list">
+            <li>
+              <i data-lucide="instagram" class="list-icon" aria-hidden="true"></i>
+              <span><strong>Instagram の写真も活用可能</strong>：すでに公開済みの写真は、許可をいただければそのまま使えます。</span>
+            </li>
+            <li>
+              <i data-lucide="sparkles" class="list-icon is-ochre" aria-hidden="true"></i>
+              <span><strong>足りない素材の補完</strong>：不足する部分は AI で作成した素材で補う場合があります（権利上の注意点は納品時に説明文でお渡しします）。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: 月額費用と任意の保守プラン -->
+    <section id="sec-5" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 05｜公開後の費用と保守プラン</span>
+        <h2>公開後の月額費用は基本0円。サポートが必要な場合だけ選べます</h2>
+        <p>
+          無料の公開仕組み（公開基盤）を利用するため、<strong>ホームページを公開しただけでは毎月の費用はかかりません</strong>。更新のお手伝いが必要なオーナー様向けに、いつでも当月末で解約できる任意の保守プランもご用意しています。
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <span class="mono-label">BASE MONTHLY COST</span>
+          <div class="figure-value">月額 0<span class="figure-unit"> 円（基本）</span></div>
+          <p>
+            無料の公開基盤を使うため、サーバー維持費などの固定費はかかりません。
+          </p>
+        </div>
+        <div class="card">
+          <span class="mono-label">CUSTOM DOMAIN（ご希望時のみ）</span>
+          <div class="figure-value">年 1,000〜2,000<span class="figure-unit"> 円程度（実費）</span></div>
+          <p>
+            お店専用のホームページアドレス（独自ドメイン）を使う場合のみ、ドメイン取得・維持の実費がかかります。取得時に実際の金額をお知らせします。
+          </p>
+        </div>
+      </div>
+
+      <div class="card-grid-3">
+        <div class="card">
+          <span class="mono-label">OPTION 01</span>
+          <h3>保守なし</h3>
+          <div class="figure-value">0<span class="figure-unit"> 円／月</span></div>
+          <p class="text-muted">公開後の修正依頼などを行わない場合は、月額費用なしで運用できます。</p>
+        </div>
+
+        <div class="card">
+          <span class="mono-label">OPTION 02（任意）</span>
+          <h3>ライトプラン</h3>
+          <div class="figure-value">3,000<span class="figure-unit"> 円／月</span></div>
+          <p class="text-muted">文章の修正・画像の差し替えを <strong>月2回まで</strong> ご依頼いただけます。</p>
+          <span class="figure-note">いつでも当月末で解約可能</span>
+        </div>
+
+        <div class="card">
+          <span class="mono-label">OPTION 03（任意）</span>
+          <h3>標準プラン</h3>
+          <div class="figure-value">5,000<span class="figure-unit"> 円／月</span></div>
+          <p class="text-muted">文章の修正・画像の差し替え（<strong>月4回まで</strong>）に加えて、<strong>簡易レポート</strong>をお渡しします。</p>
+          <span class="figure-note">いつでも当月末で解約可能</span>
+        </div>
+      </div>
+
+      <!-- Interactive Simulator -->
+      <div style="margin-top: var(--space-md);">
+        <span class="kicker">Interactive Simulator｜かんたん費用・日程シミュレーター</span>
+        <h3>ご希望の条件を選んで、お支払いと維持費を確認する</h3>
+        <div class="simulator-shell" style="margin-top: var(--space-md);">
+          <div class="sim-controls">
+            <div class="control-group">
+              <span class="control-label">1. ご希望の制作プラン</span>
+              <div class="seg-grid">
+                <button type="button" class="seg-btn is-selected" id="sim-plan-lp" onclick="setSim('plan', 'lp')">
+                  <span>簡易LP／1ページサイト</span>
+                  <span class="seg-sub">納期目安：7〜10日</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-plan-cafe" onclick="setSim('plan', 'cafe')">
+                  <span>カフェ向けパッケージ</span>
+                  <span class="seg-sub">納期目安：14〜21日</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <span class="control-label">2. 価格区分</span>
+              <div class="seg-grid">
+                <button type="button" class="seg-btn is-selected" id="sim-tier-monitor" onclick="setSim('tier', 'monitor')">
+                  <span>モニター価格（先着3店舗）</span>
+                  <span class="seg-sub">実績紹介＋ひと言感想のみ</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-tier-regular" onclick="setSim('tier', 'regular')">
+                  <span>通常価格</span>
+                  <span class="seg-sub">モニター枠終了後／条件なし</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <span class="control-label">3. お申し込み・お支払い窓口</span>
+              <div class="seg-grid">
+                <button type="button" class="seg-btn is-selected" id="sim-pay-direct" onclick="setSim('pay', 'direct')">
+                  <span>直接ご契約（銀行振込）</span>
+                  <span class="seg-sub">着手時50%＋公開後50%</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-pay-platform" onclick="setSim('pay', 'platform')">
+                  <span>Coconala 等のプラットフォーム</span>
+                  <span class="seg-sub">各プラットフォームの規約に従う</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <span class="control-label">4. お店専用のアドレス（独自ドメイン）</span>
+              <div class="seg-grid">
+                <button type="button" class="seg-btn is-selected" id="sim-domain-no" onclick="setSim('domain', 'no')">
+                  <span>使わない（無料基盤のまま）</span>
+                  <span class="seg-sub">ドメイン実費 0円</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-domain-yes" onclick="setSim('domain', 'yes')">
+                  <span>使う（独自ドメイン）</span>
+                  <span class="seg-sub">年1,000〜2,000円程度の実費</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <span class="control-label">5. 公開後の保守プラン（任意）</span>
+              <div class="seg-grid">
+                <button type="button" class="seg-btn is-selected" id="sim-maint-none" onclick="setSim('maint', 'none')">
+                  <span>保守なし</span>
+                  <span class="seg-sub">月額 0円</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-maint-light" onclick="setSim('maint', 'light')">
+                  <span>ライト</span>
+                  <span class="seg-sub">月3,000円（月2回）</span>
+                </button>
+                <button type="button" class="seg-btn" id="sim-maint-standard" onclick="setSim('maint', 'standard')">
+                  <span>標準</span>
+                  <span class="seg-sub">月5,000円（月4回＋レポート）</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="sim-output card is-leaf-highlight" aria-live="polite">
+            <span class="mono-label" style="color: var(--on-primary-container);">試算結果（税込）</span>
+            <div>
+              <div class="sim-row-label">制作費 合計</div>
+              <div class="figure-value" id="out-total" style="color: var(--on-primary-container);">39,000<span class="figure-unit" style="color: var(--on-primary-container);"> 円</span></div>
+            </div>
+            <div class="sim-row">
+              <span class="sim-row-label">お支払い内訳</span>
+              <span class="sim-row-val" id="out-split">着手時 19,500円 ／ 公開後 19,500円</span>
+            </div>
+            <div class="sim-row">
+              <span class="sim-row-label">納期目安（素材揃い後）</span>
+              <span class="sim-row-val" id="out-turnaround">7〜10日</span>
+            </div>
+            <div class="sim-row">
+              <span class="sim-row-label">公開前の無料修正</span>
+              <span class="sim-row-val">軽微な修正 1回</span>
+            </div>
+            <div class="sim-row">
+              <span class="sim-row-label">公開後の月額費用</span>
+              <span class="sim-row-val" id="out-monthly">0円（基本無料）</span>
+            </div>
+            <div class="sim-row">
+              <span class="sim-row-label">独自ドメイン実費</span>
+              <span class="sim-row-val" id="out-domain">0円（不要）</span>
+            </div>
+            <p id="out-note" style="font-size: 0.875rem; margin-top: var(--space-xs);">
+              モニター枠（先着3店舗）適用時のお見積りです。条件は「実績としての紹介」と「ひと言のご感想」のみで、Google口コミ投稿は不要です。
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: 申し込み前の確認チェックリスト -->
+    <section id="sec-6" class="guide-section reveal">
+      <div>
+        <span class="kicker">Section 06｜お申し込み前の最終確認</span>
+        <h2>ご相談・お申し込み前の確認チェックリスト</h2>
+        <p>
+          お申し込みの前に、以下の7つのポイントを確認しておくとやり取りがスムーズです。チェックした内容と上の試算条件は自動で保存されます。
+        </p>
+      </div>
+
+      <div class="checklist-card">
+        <div class="checklist-header">
+          <div>
+            <span class="mono-label">CHECKLIST PROGRESS</span>
+            <h3 id="check-progress-label" style="margin: 0;">7項目中 0項目 確認済み</h3>
+          </div>
+          <span class="pill-tag is-leaf" id="check-badge">これから確認</span>
+        </div>
+
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="check-progress-fill"></div>
+        </div>
+
+        <div class="check-items" id="check-items-list">
+          <label class="check-item" for="chk-0">
+            <input type="checkbox" id="chk-0" class="check-box" onchange="toggleCheck(0)">
+            <span class="check-text">
+              <span class="check-title">1. ご希望のプラン（簡易LP／1ページサイト または カフェ向けパッケージ）を選んだ</span>
+              <span class="check-desc">1ページにまとめる簡易LPか、カフェ向けホームページパッケージかを決めました。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-1">
+            <input type="checkbox" id="chk-1" class="check-box" onchange="toggleCheck(1)">
+            <span class="check-text">
+              <span class="check-title">2. モニター価格を希望する場合、実績紹介とひと言の感想に協力できる</span>
+              <span class="check-desc">先着3店舗のモニター枠について確認しました（Google 口コミ投稿は条件になりません）。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-2">
+            <input type="checkbox" id="chk-2" class="check-box" onchange="toggleCheck(2)">
+            <span class="check-text">
+              <span class="check-title">3. お支払い条件（着手時50%・公開後50%）とキャンセル時の返金ルールを確認した</span>
+              <span class="check-desc">直接契約の銀行振込条件（またはプラットフォーム規約）と、着手前全額返金・着手後は進行分差引のルールを確認しました。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-3">
+            <input type="checkbox" id="chk-3" class="check-box" onchange="toggleCheck(3)">
+            <span class="check-text">
+              <span class="check-title">4. 写真・メニュー・料金表など、手元の素材を用意できそうか確認した</span>
+              <span class="check-desc">店舗側からの素材提供が原則ですが、公開済みの Instagram 写真の流用や、不足部分の AI 素材補完も相談できます。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-4">
+            <input type="checkbox" id="chk-4" class="check-box" onchange="toggleCheck(4)">
+            <span class="check-text">
+              <span class="check-title">5. 納期（素材揃い後7〜10日／14〜21日）と公開前無料修正（軽微なもの1回）を確認した</span>
+              <span class="check-desc">構成の大幅な変更は別途お見積りになる点も把握しました。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-5">
+            <input type="checkbox" id="chk-5" class="check-box" onchange="toggleCheck(5)">
+            <span class="check-text">
+              <span class="check-title">6. 公開後の基本月額0円と、独自ドメイン・任意保守プランのルールを確認した</span>
+              <span class="check-desc">独自ドメイン希望時のみ年1,000〜2,000円程度の実費がかかること、保守プランは任意で当月末解約できることを確認しました。</span>
+            </span>
+          </label>
+
+          <label class="check-item" for="chk-6">
+            <input type="checkbox" id="chk-6" class="check-box" onchange="toggleCheck(6)">
+            <span class="check-text">
+              <span class="check-title">7. 連絡方法がオンライン（メール／チャット）のみで、電話営業がないことを確認した</span>
+              <span class="check-desc">AIで下地を作り人が構成・最終確認する制作体制と、オンライン完結のやり取りに納得しました。</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="action-row">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="exportSummary()">
+              <i data-lucide="download" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+              <span>確認メモを保存する（.txt）</span>
+            </button>
+            <button type="button" class="btn btn-secondary" id="reset-btn" onclick="resetChecklist(this)">
+              <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+              <span>チェックをリセット</span>
+            </button>
+          </div>
+          <span class="inline-status" id="checklist-status" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+
+    <footer class="page-footer">
+      <strong>ご案内資料について</strong>
+      <span>本ページは Studio Miraie の「受注・仕様シート（2026-11-22 作成）」および「価格表記の統一案（2026-11-22 作成）」をもとに作成しています。記載されている金額はすべて税込です。</span>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    const STEPS = [
+      {
+        kicker: `STEP 01｜ご相談・条件の確認`,
+        title: `メールまたはチャットで条件を確認します`,
+        body: `ご希望のプラン（簡易LP／1ページサイト または カフェ向けホームページパッケージ）と、モニター枠（先着3店舗）の空き状況・条件を確認します。やり取りはすべてオンライン（メール／チャット）のみで、お電話での営業や催促は行いません。`
+      },
+      {
+        kicker: `STEP 02｜着手時のお支払い（50%）`,
+        title: `直接ご契約の場合は着手時に50%をお振り込みいただきます`,
+        body: `直接契約の場合は銀行振込にて、制作開始前に50%をお支払いいただきます（Coconala 等のプラットフォーム経由の場合は各プラットフォームの規約・支払い方法に従います）。なお、制作開始前（着手前）のキャンセルは全額返金いたします。`
+      },
+      {
+        kicker: `STEP 03｜写真・メニューなどの素材ご提供`,
+        title: `お店の写真やメニュー・料金表をご用意いただきます`,
+        body: `写真・メニュー・料金表などの素材は店舗さまからのご提供が原則です。Instagram にすでに公開されているお写真は、許可をいただければそのまま流用できます。素材がそろった時点から、納期のカウント（7〜10日／14〜21日）が始まります。`
+      },
+      {
+        kicker: `STEP 04｜制作作業（AI下地＋人の構成・確認）`,
+        title: `AIで下地を作り、人が構成と最終確認を行います`,
+        body: `簡易LPではスマホ最適化、電話・LINE・予約フォームへの導線設計、Googleマップ・Instagramリンク、検索向け基本設定（順位や集客数の保証はなし）を実装します。素材が足りない部分は AI 生成素材で補う場合があります。着手後のキャンセルは進行分を差し引いて返金となります。`
+      },
+      {
+        kicker: `STEP 05｜公開前のご確認・無料修正（1回）`,
+        title: `公開前に画面を確認し、軽微な修正を1回まで無料で対応します`,
+        body: `完成したサイトを事前にお確かめいただきます。文章の修正や写真の差し替えなど、軽微なものは1回まで無料修正に含まれます。全体の構成を大きく変更する場合は、別途お見積りとなります。`
+      },
+      {
+        kicker: `STEP 06｜公開（納品）・残金50%のお支払い`,
+        title: `サイトを公開し、直接契約の場合は残りの50%をお支払いいただきます`,
+        body: `公開（納品）完了後、直接契約の場合は残りの50%をお振り込みいただきます。AI生成素材を使った場合の権利上の注意点は納品時に説明文でお渡しします。モニター価格をご利用の場合は、制作事例としての紹介とひと言のご感想にご協力をお願いいたします。`
+      }
+    ];
+
+    const SIM_PRICES = {
+      lp: { monitor: 39000, regular: 54800, days: `7〜10日` },
+      cafe: { monitor: 98000, regular: 148000, days: `14〜21日` }
+    };
+
+    let appState = {
+      activeStep: 0,
+      sim: {
+        plan: `lp`,
+        tier: `monitor`,
+        pay: `direct`,
+        domain: `no`,
+        maint: `none`
+      },
+      checks: [false, false, false, false, false, false, false]
+    };
+
+    function formatYen(num) {
+      return Number(num).toLocaleString(`ja-JP`);
+    }
+
+    function selectStep(index) {
+      if (index < 0 || index >= STEPS.length) return;
+      appState.activeStep = index;
+      renderStep();
+      persistState();
+    }
+
+    function renderStep() {
+      const idx = appState.activeStep;
+      for (let i = 0; i < STEPS.length; i++) {
+        const btn = document.getElementById(`step-btn-${i}`);
+        if (!btn) continue;
+        const isCurrent = i === idx;
+        btn.classList.toggle(`is-active`, isCurrent);
+        btn.setAttribute(`aria-selected`, isCurrent ? `true` : `false`);
+      }
+      const step = STEPS[idx];
+      const kickerEl = document.getElementById(`step-detail-kicker`);
+      const titleEl = document.getElementById(`step-detail-title`);
+      const bodyEl = document.getElementById(`step-detail-body`);
+      if (kickerEl) kickerEl.textContent = step.kicker;
+      if (titleEl) titleEl.textContent = step.title;
+      if (bodyEl) bodyEl.textContent = step.body;
+    }
+
+    function setSim(key, value) {
+      appState.sim[key] = value;
+      renderSimulator();
+      persistState();
+    }
+
+    function renderSimulator() {
+      const s = appState.sim;
+      const groupButtons = {
+        plan: [`lp`, `cafe`],
+        tier: [`monitor`, `regular`],
+        pay: [`direct`, `platform`],
+        domain: [`no`, `yes`],
+        maint: [`none`, `light`, `standard`]
+      };
+
+      Object.keys(groupButtons).forEach(function (group) {
+        groupButtons[group].forEach(function (val) {
+          const btn = document.getElementById(`sim-${group}-${val}`);
+          if (btn) btn.classList.toggle(`is-selected`, s[group] === val);
+        });
+      });
+
+      const planInfo = SIM_PRICES[s.plan] || SIM_PRICES.lp;
+      const total = planInfo[s.tier] || planInfo.monitor;
+      const half = total / 2;
+
+      const outTotal = document.getElementById(`out-total`);
+      if (outTotal) {
+        outTotal.innerHTML = `${formatYen(total)}<span class="figure-unit" style="color: var(--on-primary-container);"> 円</span>`;
+      }
+
+      const outSplit = document.getElementById(`out-split`);
+      if (outSplit) {
+        if (s.pay === `direct`) {
+          outSplit.textContent = `着手時 ${formatYen(half)}円 ／ 公開後 ${formatYen(half)}円（銀行振込）`;
+        } else {
+          outSplit.textContent = `プラットフォーム規約・支払い方法に従う`;
+        }
+      }
+
+      const outTurnaround = document.getElementById(`out-turnaround`);
+      if (outTurnaround) outTurnaround.textContent = planInfo.days;
+
+      const outMonthly = document.getElementById(`out-monthly`);
+      if (outMonthly) {
+        if (s.maint === `none`) {
+          outMonthly.textContent = `0円（基本無料・保守なし）`;
+        } else if (s.maint === `light`) {
+          outMonthly.textContent = `月 3,000円（ライト・当月末解約可）`;
+        } else {
+          outMonthly.textContent = `月 5,000円（標準・当月末解約可）`;
+        }
+      }
+
+      const outDomain = document.getElementById(`out-domain`);
+      if (outDomain) {
+        outDomain.textContent = s.domain === `yes`
+          ? `年 1,000〜2,000円程度（取得時に実額提示）`
+          : `0円（無料の公開基盤を使用）`;
+      }
+
+      const outNote = document.getElementById(`out-note`);
+      if (outNote) {
+        if (s.tier === `monitor`) {
+          outNote.textContent = `モニター枠（先着3店舗）適用時のお見積りです。条件は「実績としての紹介」と「ひと言のご感想」のみで、Google口コミ投稿は不要です。`;
+        } else {
+          outNote.textContent = `通常価格でのお見積りです。モニター枠が埋まったあとのご案内価格となります。`;
+        }
+      }
+    }
+
+    function toggleCheck(index) {
+      const box = document.getElementById(`chk-${index}`);
+      if (!box) return;
+      appState.checks[index] = Boolean(box.checked);
+      renderChecklist();
+      persistState();
+    }
+
+    function renderChecklist() {
+      let doneCount = 0;
+      const total = appState.checks.length;
+      for (let i = 0; i < total; i++) {
+        const checked = Boolean(appState.checks[i]);
+        if (checked) doneCount++;
+        const box = document.getElementById(`chk-${i}`);
+        if (box) {
+          box.checked = checked;
+          const label = box.closest(`.check-item`);
+          if (label) label.classList.toggle(`is-checked`, checked);
+        }
+      }
+
+      const progressLabel = document.getElementById(`check-progress-label`);
+      if (progressLabel) {
+        progressLabel.textContent = `${total}項目中 ${doneCount}項目 確認済み`;
+      }
+
+      const fill = document.getElementById(`check-progress-fill`);
+      if (fill) {
+        const pct = Math.round((doneCount / total) * 100);
+        fill.style.width = `${pct}%`;
+      }
+
+      const badge = document.getElementById(`check-badge`);
+      if (badge) {
+        if (doneCount === 0) {
+          badge.textContent = `これから確認`;
+          badge.className = `pill-tag`;
+        } else if (doneCount < total) {
+          badge.textContent = `確認中（あと${total - doneCount}項目）`;
+          badge.className = `pill-tag is-warm`;
+        } else {
+          badge.textContent = `すべて確認完了`;
+          badge.className = `pill-tag is-leaf`;
+        }
+      }
+    }
+
+    function resetChecklist(btn) {
+      if (!btn) return;
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        const span = btn.querySelector(`span`);
+        if (span) span.textContent = `もう一度押すとリセットします`;
+        const status = document.getElementById(`checklist-status`);
+        if (status) status.textContent = `リセットする場合は、もう一度ボタンを押してください。`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      const span = btn.querySelector(`span`);
+      if (span) span.textContent = `チェックをリセット`;
+      appState.checks = [false, false, false, false, false, false, false];
+      renderChecklist();
+      persistState();
+      const status = document.getElementById(`checklist-status`);
+      if (status) status.textContent = `チェックをすべてリセットしました。`;
+    }
+
+    function exportSummary() {
+      const s = appState.sim;
+      const planInfo = SIM_PRICES[s.plan] || SIM_PRICES.lp;
+      const total = planInfo[s.tier] || planInfo.monitor;
+      const planName = s.plan === `lp` ? `簡易LP／1ページサイト` : `カフェ向けホームページパッケージ`;
+      const tierName = s.tier === `monitor` ? `モニター価格（先着3店舗）` : `通常価格`;
+      const payName = s.pay === `direct`
+        ? `直接契約（銀行振込：着手時 ${formatYen(total / 2)}円 ／ 公開後 ${formatYen(total / 2)}円）`
+        : `プラットフォーム（Coconala 等）経由`;
+      const domainName = s.domain === `yes` ? `独自ドメインあり（年1,000〜2,000円程度の実費）` : `なし（基本月額0円）`;
+      const maintName = s.maint === `none`
+        ? `保守なし（月額0円）`
+        : (s.maint === `light` ? `ライト（月額3,000円／月2回まで）` : `標準（月額5,000円／月4回まで＋簡易レポート）`);
+
+      const checkTitles = [
+        `1. 希望プランの選択`,
+        `2. モニター条件（実績紹介・ひと言感想／Google口コミ不要）の確認`,
+        `3. お支払い条件とキャンセル規定の確認`,
+        `4. 素材（写真・メニュー・料金表／Instagram流用／AI補完）の確認`,
+        `5. 納期と無料修正（軽微なもの1回）の確認`,
+        `6. 公開後の基本月額0円・ドメイン・任意保守の確認`,
+        `7. オンラインのみ対応（電話営業なし）の確認`
+      ];
+
+      const checkLines = checkTitles.map(function (t, i) {
+        return `${appState.checks[i] ? `[済]` : `[未]`} ${t}`;
+      }).join(`\n`);
+
+      const content = [
+        `Studio Miraie ホームページ制作 ご確認メモ`,
+        `========================================`,
+        `希望プラン: ${planName}`,
+        `価格区分: ${tierName}`,
+        `制作費合計（税込）: ${formatYen(total)}円`,
+        `お支払い方法: ${payName}`,
+        `納期目安（素材揃い後）: ${planInfo.days}`,
+        `独自ドメイン: ${domainName}`,
+        `保守プラン: ${maintName}`,
+        ``,
+        `事前確認チェックリスト:`,
+        checkLines
+      ].join(`\n`);
+
+      const status = document.getElementById(`checklist-status`);
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: content,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `studio-miraie-checklist.txt`
+        });
+        if (status) status.textContent = `確認メモ（studio-miraie-checklist.txt）を保存しました。`;
+      } else {
+        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement(`a`);
+        a.href = url;
+        a.download = `studio-miraie-checklist.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        if (status) status.textContent = `確認メモ（studio-miraie-checklist.txt）をダウンロードしました。`;
+      }
+    }
+
+    async function persistState() {
+      if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+        try {
+          await window.notebookAppApi.setAppState(appState);
+        } catch (err) {
+          // Ignore persistence errors in preview environments
+        }
+      }
+    }
+
+    function initScrollReveal() {
+      const targets = document.querySelectorAll(`.reveal`);
+      if (!(`IntersectionObserver` in window)) {
+        targets.forEach(function (el) { el.classList.add(`is-visible`); });
+        return;
+      }
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(`is-visible`);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      targets.forEach(function (el) { observer.observe(el); });
+    }
+
+    async function initApp() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+        try {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.activeStep === `number`) appState.activeStep = saved.activeStep;
+            if (saved.sim && typeof saved.sim === `object`) {
+              appState.sim = Object.assign({}, appState.sim, saved.sim);
+            }
+            if (Array.isArray(saved.checks) && saved.checks.length === 7) {
+              appState.checks = saved.checks.map(Boolean);
+            }
+          }
+        } catch (err) {
+          // Fallback to default state
+        }
+      }
+
+      renderStep();
+      renderSimulator();
+      renderChecklist();
+      initScrollReveal();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
