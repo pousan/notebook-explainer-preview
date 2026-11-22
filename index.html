@@ -442,6 +442,8 @@
     /* Hero (text first, phone mockup) */
     .hero { display: grid; gap: var(--space-lg); }
     .hero h1 { font-size: clamp(1.5rem, 1.1rem + 2.2vw, 2.75rem); }
+    .hero h1 .h-phrase { display: inline-block; }
+    h1, h2 { word-break: auto-phrase; }
     .hero-sub {
       font-family: var(--font-headline);
       font-weight: 600;
@@ -880,7 +882,7 @@
     <header class="hero">
       <div class="hero-text">
         <span class="kicker">Studio Miraie｜小規模店舗・カフェオーナー様向けご案内</span>
-        <h1>はじめてのホームページ制作<br>サービスと条件のわかりやすいガイド</h1>
+        <h1><span class="h-phrase">はじめてのホームページ制作</span><span class="h-phrase">サービスと条件の</span><span class="h-phrase">わかりやすいガイド</span></h1>
         <p class="hero-sub">月額の維持費は基本0円／モニター価格 39,000円〜</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-link" href="https://pousan.github.io/studio-miraie-guide/" target="_blank" rel="noopener">制作見本を見る ↗</a>
