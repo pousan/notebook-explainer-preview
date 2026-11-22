@@ -21,18 +21,18 @@
       --surface-container-high: #ddd3c2;
 
       /* Ink */
-      --on-surface: #2a302b;
-      --on-surface-variant: #4a524b;
+      --on-surface: #26211d;
+      --on-surface-variant: #544c45;
 
       /* Lines */
       --outline: #737872;
       --outline-variant: #cbc5b8;
 
       /* Accents */
-      --primary: #366948;
+      --primary: #2d5a3e;
       --on-primary: #ffffff;
       --primary-container: #d8efe0;
-      --on-primary-container: #1f4d30;
+      --on-primary-container: #183d26;
       --secondary: #5c635c;
       --tertiary: #8f5822;
       --tertiary-container: #f2d4a7;
@@ -41,7 +41,7 @@
       --on-error: #ffffff;
 
       /* Data series */
-      --data-1: #366948;
+      --data-1: #2d5a3e;
       --data-2: #8f5822;
       --data-3: #a85438;
       --data-4: #4b6b78;
@@ -61,12 +61,12 @@
       --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
       --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.09);
       --border-soft: 1px solid rgb(203 197 184 / 0.65);
-      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.18);
+      --focus-glow: 0 0 0 4px rgb(45 90 62 / 0.18);
 
       /* Shared tokens */
-      --positive: #366948;
+      --positive: #2d5a3e;
       --warning: #8f5822;
-      --focus: #366948;
+      --focus: #2d5a3e;
 
       /* Type scale (Narrative) */
       --display-size: clamp(2.125rem, 1.35rem + 2.6vw, 3.25rem);
@@ -123,7 +123,7 @@
       padding: var(--space-xl) var(--space-lg) var(--space-3xl);
       max-width: 1040px;
       margin: 0 auto;
-      overflow: hidden;
+      overflow: clip;
     }
     .page-grid * { min-width: 0; }
 
@@ -402,56 +402,148 @@
       justify-content: space-between;
       gap: var(--space-md);
     }
-    .step-cells {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: var(--space-sm);
-    }
-    .step-btn {
-      min-height: 52px;
-      padding: var(--space-sm) var(--space-xs);
-      border: 0;
-      border-radius: var(--rounded);
-      background-color: var(--surface-container-high);
-      color: var(--on-surface);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      text-align: center;
-      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
-    }
-    .step-btn:hover {
-      background-color: var(--tertiary-container);
-      color: var(--on-tertiary-container);
-      transform: translateY(-1px);
-    }
-    .step-btn.is-prep {
-      background-color: var(--tertiary-container);
-      color: var(--on-tertiary-container);
-    }
-    .step-btn.is-active {
-      background-color: var(--primary);
+    /* Vertical timeline (6 steps, always expanded) */
+    .timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+    .tl-item { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: var(--space-md); }
+    .tl-node { position: relative; }
+    .tl-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: var(--primary);
       color: var(--on-primary);
-    }
-    .step-num {
       font-family: var(--font-label);
-      font-size: 0.75rem;
+      font-size: 0.875rem;
       font-weight: 600;
     }
-    .step-name {
-      font-size: 0.8125rem;
-      font-weight: 700;
-      line-height: 1.25;
+    .tl-item:not(:last-child) .tl-node::after {
+      content: "";
+      position: absolute;
+      top: 50px; bottom: 6px; left: 50%;
+      width: 2px;
+      transform: translateX(-50%);
+      background: var(--outline-variant);
     }
-    .step-detail-box {
-      background-color: var(--background);
-      border-radius: var(--rounded);
-      padding: var(--space-lg);
-      display: grid;
-      gap: var(--space-sm);
+    .tl-body { padding-bottom: var(--space-lg); display: grid; gap: var(--space-xs); align-content: start; }
+    .tl-item:last-child .tl-body { padding-bottom: 0; }
+    .tl-body h4 { font-family: var(--font-headline); font-size: 1.0625rem; font-weight: 600; line-height: 1.45; margin: 0; }
+    .tl-body p { font-size: 0.9375rem; margin: 0; color: var(--on-surface-variant); }
+    .tl-label { font-family: var(--font-label); font-size: 0.75rem; color: var(--secondary); display: flex; flex-wrap: wrap; gap: var(--space-sm); align-items: center; }
+    .role-badge {
+      padding: 1px var(--space-sm);
+      border-radius: var(--rounded-full);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .role-shop { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+    .role-studio { background: var(--primary-container); color: var(--on-primary-container); }
+
+    /* Hero (text first, phone mockup) */
+    .hero { display: grid; gap: var(--space-lg); }
+    .hero h1 { font-size: clamp(1.5rem, 1.1rem + 2.2vw, 2.75rem); }
+    .hero-sub {
+      font-family: var(--font-headline);
+      font-weight: 600;
+      font-size: var(--subhead-size);
+      line-height: 1.5;
+      color: var(--on-primary-container);
+      margin: 0 0 var(--space-md);
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-lg) 0 0; }
+    .hero .hero-meta-row { margin-top: var(--space-md); }
+    .hero-visual { display: flex; justify-content: center; }
+    .btn-link { text-decoration: none; }
+    .btn-block { width: 100%; }
+
+    .phone-frame {
+      position: relative;
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto;
+      border: 7px solid var(--on-surface);
+      border-radius: 28px;
+      background: var(--on-surface);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft-hover);
+    }
+    .phone-frame::before {
+      content: "";
+      position: absolute;
+      top: 6px; left: 50%;
+      width: 44px; height: 5px;
+      transform: translateX(-50%);
+      border-radius: var(--rounded-full);
+      background: rgb(255 255 255 / 0.35);
+      z-index: 2;
+    }
+    .phone-frame img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 9 / 15;
+      object-fit: cover;
+      object-position: top;
+      background: var(--surface-container);
+    }
+    .demo-pill {
+      position: absolute;
+      left: 50%; bottom: 10px;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      padding: 2px var(--space-md);
+      border-radius: var(--rounded-full);
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 2;
+    }
+    .plan-preview { display: flex; justify-content: center; }
+    .plan-preview .phone-frame { max-width: 220px; }
+    .plan-preview .phone-frame img { aspect-ratio: 4 / 5; }
+    .card-foot { margin-top: auto; display: grid; gap: var(--space-md); }
+
+    /* Pricing */
+    .price-regular { color: var(--outline); text-decoration: line-through; }
+    .saving-badge {
+      display: inline-block;
+      margin-left: var(--space-sm);
+      padding: 2px var(--space-sm);
+      border-radius: var(--rounded-full);
+      background: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+
+    /* Materials photo */
+    .photo-figure { margin: 0; display: grid; gap: var(--space-xs); }
+    .photo-figure img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--rounded); }
+    .photo-figure figcaption { font-size: 0.8125rem; color: var(--on-surface-variant); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      left: 50%; bottom: var(--space-lg);
+      transform: translate(-50%, 20px);
+      max-width: calc(100vw - 2rem);
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded-full);
+      background: var(--on-surface);
+      color: var(--background);
+      font-size: 0.875rem;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+      z-index: 50;
+    }
+    .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (min-width: 821px) {
+      .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-xl); align-items: center; }
     }
 
     /* Interactive Cost Simulator */
@@ -527,7 +619,7 @@
       align-items: baseline;
       gap: var(--space-md);
       padding-bottom: var(--space-sm);
-      border-bottom: 1px solid rgb(31 77 48 / 0.16);
+      border-bottom: 1px solid rgb(24 61 38 / 0.16);
     }
     .sim-row:last-of-type {
       border-bottom: none;
@@ -710,9 +802,6 @@
       .simulator-shell {
         grid-template-columns: 1fr;
       }
-      .step-cells {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
     }
 
     @media (max-width: 640px) {
@@ -720,9 +809,34 @@
         padding: var(--space-lg) var(--space-md) var(--space-2xl);
         gap: var(--space-lg);
       }
-      .step-cells {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .toc-bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .toc-link { white-space: nowrap; flex-shrink: 0; }
+
+      .price-table thead { display: none; }
+      .price-table, .price-table tbody, .price-table tr, .price-table td { display: block; width: 100%; }
+      .table-wrap { padding: 0; background: none; overflow-x: visible; }
+      .price-table tbody { display: grid; gap: var(--space-md); }
+      .price-table tr {
+        background: var(--surface-container-low);
+        border-radius: var(--rounded-lg);
+        padding: var(--space-sm) var(--space-md);
       }
+      .price-table td {
+        display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md);
+        border-bottom: var(--border-soft);
+        padding: var(--space-sm) 0;
+        text-align: right;
+      }
+      .price-table td:last-child { border-bottom: none; }
+      .price-table td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        text-align: left;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        color: var(--secondary);
+      }
+      .price-table td:first-child { font-size: 1rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -742,15 +856,27 @@
   <main class="page-grid">
     <!-- Hero -->
     <header class="hero">
-      <span class="kicker">Studio Miraie｜小規模店舗・カフェオーナー様向けご案内</span>
-      <h1>はじめてのホームページ制作<br>サービスと条件のわかりやすいガイド</h1>
-      <p>
-        「ホームページを作りたいけれど、専門用語ばかりでよく分からない」「あとから高額な請求が来ないか不安」というお店のために、制作内容・料金・お支払い方法・公開後の維持費まで、大切なルールを1ページにまとめました。
-      </p>
-      <div class="hero-meta-row">
-        <span class="pill-tag is-leaf">月額の維持費 基本0円</span>
-        <span class="pill-tag is-warm">先着3店舗 モニター価格あり</span>
-        <span class="pill-tag">オンライン完結・電話営業なし</span>
+      <div class="hero-text">
+        <span class="kicker">Studio Miraie｜小規模店舗・カフェオーナー様向けご案内</span>
+        <h1>はじめてのホームページ制作<br>サービスと条件のわかりやすいガイド</h1>
+        <p class="hero-sub">月額の維持費は基本0円／モニター価格 39,000円〜</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-link" href="https://pousan.github.io/studio-miraie-guide/" target="_blank" rel="noopener">制作見本を見る ↗</a>
+        </div>
+        <div class="hero-meta-row">
+          <span class="pill-tag is-leaf">月額の維持費 基本0円</span>
+          <span class="pill-tag is-warm">先着3店舗 モニター価格あり</span>
+          <span class="pill-tag">オンライン完結・電話営業なし</span>
+        </div>
+        <p style="margin-top: var(--space-lg);">
+          「ホームページを作りたいけれど、専門用語ばかりでよく分からない」「あとから高額な請求が来ないか不安」というお店のために、制作内容・料金・お支払い方法・公開後の維持費まで、大切なルールを1ページにまとめました。
+        </p>
+      </div>
+      <div class="hero-visual">
+        <div class="phone-frame">
+          <img src="images/hero-interior.webp" alt="カフェの店内の写真（制作見本のイメージ）" width="520" height="866" decoding="async">
+          <span class="demo-pill">制作見本（デモ）</span>
+        </div>
       </div>
     </header>
 
@@ -776,6 +902,12 @@
 
       <div class="card-grid">
         <article class="card">
+          <div class="plan-preview">
+            <div class="phone-frame">
+              <img src="images/storefront.webp" alt="簡易LPの制作見本のイメージ（お店の外観写真）" width="440" height="550" loading="lazy" decoding="async">
+              <span class="demo-pill">制作見本（デモ）</span>
+            </div>
+          </div>
           <div>
             <span class="mono-label">PLAN A</span>
             <h3>簡易LP／1ページサイト</h3>
@@ -801,13 +933,22 @@
               <span>検索で見つけてもらいやすくするための基本設定（※タイトルや説明文などの基本設定を行います。検索順位や集客数の保証はしておりません）</span>
             </li>
           </ul>
-          <div class="card-band">
-            <span class="mono-label">納期目安（素材がそろってから）</span>
-            <div class="figure-value">7〜10<span class="figure-unit"> 日</span></div>
+          <div class="card-foot">
+            <div class="card-band">
+              <span class="mono-label">納期目安（素材がそろってから）</span>
+              <div class="figure-value">7〜10<span class="figure-unit"> 日</span></div>
+            </div>
+            <a class="btn btn-secondary btn-link btn-block" href="https://pousan.github.io/studio-miraie-guide/" target="_blank" rel="noopener">制作見本を見る ↗</a>
           </div>
         </article>
 
         <article class="card">
+          <div class="plan-preview">
+            <div class="phone-frame">
+              <img src="images/toast-set.webp" alt="カフェ向けパッケージの制作見本のイメージ（トーストセットの写真）" width="440" height="550" loading="lazy" decoding="async">
+              <span class="demo-pill">制作見本（デモ）</span>
+            </div>
+          </div>
           <div>
             <span class="mono-label">PLAN B</span>
             <h3>カフェ向けホームページパッケージ</h3>
@@ -828,10 +969,33 @@
               <i data-lucide="info" class="list-icon is-ochre" aria-hidden="true"></i>
               <span>ご提供いただく写真・メニュー・料金表などの素材をもとに、人の手で構成と最終確認を行います</span>
             </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>複数ページ構成（メニュー・アクセスなど）</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>Instagram への導線設置</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>Google ビジネスプロフィールの整備</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>QR カードのご用意</span>
+            </li>
+            <li>
+              <i data-lucide="check" class="list-icon" aria-hidden="true"></i>
+              <span>検索で見つけてもらいやすくするための基本設定</span>
+            </li>
           </ul>
-          <div class="card-band">
-            <span class="mono-label">納期目安（素材がそろってから）</span>
-            <div class="figure-value">14〜21<span class="figure-unit"> 日</span></div>
+          <div class="card-foot">
+            <div class="card-band">
+              <span class="mono-label">納期目安（素材がそろってから）</span>
+              <div class="figure-value">14〜21<span class="figure-unit"> 日</span></div>
+            </div>
+            <a class="btn btn-secondary btn-link btn-block" href="https://cafe.studiomiraie.com/" target="_blank" rel="noopener">カフェの見本を見る ↗</a>
           </div>
         </article>
       </div>
@@ -848,7 +1012,7 @@
       </div>
 
       <div class="table-wrap">
-        <table>
+        <table class="price-table">
           <thead>
             <tr>
               <th>プラン名</th>
@@ -859,16 +1023,16 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>簡易LP／1ページサイト</strong></td>
-              <td><span class="price-strong">39,000円</span></td>
-              <td>54,800円</td>
-              <td>7〜10日</td>
+              <td data-label="プラン名"><strong>簡易LP／1ページサイト</strong></td>
+              <td data-label="モニター価格（税込・先着3店舗）"><span><span class="price-strong">39,000円</span><span class="saving-badge">15,800円お得</span></span></td>
+              <td data-label="通常価格（税込）"><span class="price-regular">54,800円</span></td>
+              <td data-label="納期目安（素材がそろってから）">7〜10日</td>
             </tr>
             <tr>
-              <td><strong>カフェ向けホームページパッケージ</strong></td>
-              <td><span class="price-strong">98,000円</span></td>
-              <td>148,000円</td>
-              <td>14〜21日</td>
+              <td data-label="プラン名"><strong>カフェ向けホームページパッケージ</strong></td>
+              <td data-label="モニター価格（税込・先着3店舗）"><span><span class="price-strong">98,000円</span><span class="saving-badge">50,000円お得</span></span></td>
+              <td data-label="通常価格（税込）"><span class="price-regular">148,000円</span></td>
+              <td data-label="納期目安（素材がそろってから）">14〜21日</td>
             </tr>
           </tbody>
         </table>
@@ -951,45 +1115,61 @@
         <div class="step-strip-header">
           <div>
             <span class="mono-label">WORKFLOW STEPS</span>
-            <h3 style="margin: 0;">お申し込みから公開までの6ステップ（クリックして詳細を確認）</h3>
+            <h3 style="margin: 0;">お申し込みから公開までの6ステップ</h3>
           </div>
           <span class="mono-label">オンライン完結・電話営業なし</span>
         </div>
 
-        <div class="step-cells" role="tablist" aria-label="制作ステップ">
-          <button type="button" class="step-btn is-prep is-active" onclick="selectStep(0)" id="step-btn-0" role="tab" aria-selected="true">
-            <span class="step-num">STEP 01</span>
-            <span class="step-name">ご相談・確認</span>
-          </button>
-          <button type="button" class="step-btn is-prep" onclick="selectStep(1)" id="step-btn-1" role="tab" aria-selected="false">
-            <span class="step-num">STEP 02</span>
-            <span class="step-name">着手時入金</span>
-          </button>
-          <button type="button" class="step-btn is-prep" onclick="selectStep(2)" id="step-btn-2" role="tab" aria-selected="false">
-            <span class="step-num">STEP 03</span>
-            <span class="step-name">素材ご提供</span>
-          </button>
-          <button type="button" class="step-btn" onclick="selectStep(3)" id="step-btn-3" role="tab" aria-selected="false">
-            <span class="step-num">STEP 04</span>
-            <span class="step-name">制作作業</span>
-          </button>
-          <button type="button" class="step-btn" onclick="selectStep(4)" id="step-btn-4" role="tab" aria-selected="false">
-            <span class="step-num">STEP 05</span>
-            <span class="step-name">確認・修正</span>
-          </button>
-          <button type="button" class="step-btn" onclick="selectStep(5)" id="step-btn-5" role="tab" aria-selected="false">
-            <span class="step-num">STEP 06</span>
-            <span class="step-name">公開・残金</span>
-          </button>
-        </div>
-
-        <div class="step-detail-box" id="step-detail-box" role="tabpanel">
-          <span class="mono-label" id="step-detail-kicker">STEP 01｜ご相談・条件の確認</span>
-          <h3 id="step-detail-title" style="margin: 0;">メールまたはチャットで条件を確認します</h3>
-          <p id="step-detail-body">
-            ご希望のプラン（簡易LP または カフェ向けパッケージ）と、モニター枠の空き状況・条件を確認します。対応はすべてオンライン（メール／チャット）のみで、お電話での営業や催促は行いません。
-          </p>
-        </div>
+        <ol class="timeline">
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">01</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 01｜ご相談・条件の確認</span>
+              <h4>メールまたはチャットで条件を確認します</h4>
+              <p>ご希望のプラン（簡易LP／1ページサイト または カフェ向けホームページパッケージ）と、モニター枠（先着3店舗）の空き状況・条件を確認します。やり取りはすべてオンライン（メール／チャット）のみで、お電話での営業や催促は行いません。</p>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">02</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 02｜着手時のお支払い（50%）</span>
+              <h4>直接ご契約の場合は着手時に50%をお振り込みいただきます</h4>
+              <p>直接契約の場合は銀行振込にて、制作開始前に50%をお支払いいただきます（Coconala 等のプラットフォーム経由の場合は各プラットフォームの規約・支払い方法に従います）。なお、制作開始前（着手前）のキャンセルは全額返金いたします。</p>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">03</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 03｜写真・メニューなどの素材ご提供 <span class="role-badge role-shop">お店のご準備</span></span>
+              <h4>お店の写真やメニュー・料金表をご用意いただきます</h4>
+              <p>写真・メニュー・料金表などの素材は店舗さまからのご提供が原則です。Instagram にすでに公開されているお写真は、許可をいただければそのまま流用できます。素材がそろった時点から、納期のカウント（7〜10日／14〜21日）が始まります。</p>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">04</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 04｜制作作業（AI下地＋人の構成・確認） <span class="role-badge role-studio">Studio Miraie 対応</span></span>
+              <h4>AIで下地を作り、人が構成と最終確認を行います</h4>
+              <p>簡易LPではスマホ最適化、電話・LINE・予約フォームへの導線設計、Googleマップ・Instagramリンク、検索向け基本設定（順位や集客数の保証はなし）を実装します。素材が足りない部分は AI 生成素材で補う場合があります。着手後のキャンセルは進行分を差し引いて返金となります。</p>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">05</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 05｜公開前のご確認・無料修正（1回）</span>
+              <h4>公開前に画面を確認し、軽微な修正を1回まで無料で対応します</h4>
+              <p>完成したサイトを事前にお確かめいただきます。文章の修正や写真の差し替えなど、軽微なものは1回まで無料修正に含まれます。全体の構成を大きく変更する場合は、別途お見積りとなります。</p>
+            </div>
+          </li>
+          <li class="tl-item">
+            <div class="tl-node"><span class="tl-num" aria-hidden="true">06</span></div>
+            <div class="tl-body">
+              <span class="tl-label">STEP 06｜公開（納品）・残金50%のお支払い</span>
+              <h4>サイトを公開し、直接契約の場合は残りの50%をお支払いいただきます</h4>
+              <p>公開（納品）完了後、直接契約の場合は残りの50%をお振り込みいただきます。AI生成素材を使った場合の権利上の注意点は納品時に説明文でお渡しします。モニター価格をご利用の場合は、制作事例としての紹介とひと言のご感想にご協力をお願いいたします。</p>
+            </div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -1046,6 +1226,10 @@
           <p>
             写真・メニュー・料金表などの素材は、原則としてお店側からご提供いただきます。
           </p>
+          <figure class="photo-figure">
+            <img src="images/roasting.webp" alt="コーヒー豆を焙煎している様子の写真" width="640" height="360" loading="lazy" decoding="async">
+            <figcaption>スマホで撮った写真や、Instagram に載せた写真で大丈夫です。</figcaption>
+          </figure>
           <ul class="clean-list">
             <li>
               <i data-lucide="instagram" class="list-icon" aria-hidden="true"></i>
@@ -1310,9 +1494,13 @@
 
         <div class="action-row">
           <div class="btn-group">
-            <button type="button" class="btn btn-primary" onclick="exportSummary()">
-              <i data-lucide="download" style="width: 18px; height: 18px;" aria-hidden="true"></i>
-              <span>確認メモを保存する（.txt）</span>
+            <a class="btn btn-primary btn-link" href="https://www.instagram.com/studiomiraie/" target="_blank" rel="noopener">
+              <i data-lucide="instagram" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+              <span>Instagram で相談する</span>
+            </a>
+            <button type="button" class="btn btn-secondary" id="copy-btn" onclick="copyConsultText()">
+              <i data-lucide="copy" style="width: 18px; height: 18px;" aria-hidden="true"></i>
+              <span>この条件で相談文をコピー</span>
             </button>
             <button type="button" class="btn btn-secondary" id="reset-btn" onclick="resetChecklist(this)">
               <i data-lucide="rotate-ccw" style="width: 18px; height: 18px;" aria-hidden="true"></i>
@@ -1326,45 +1514,12 @@
 
     <footer class="page-footer">
       <strong>ご案内資料について</strong>
-      <span>本ページは Studio Miraie の「受注・仕様シート（2026-11-22 作成）」および「価格表記の統一案（2026-11-22 作成）」をもとに作成しています。記載されている金額はすべて税込です。</span>
+      <span>Studio Miraie のサービス案内ページです。記載されている金額はすべて税込です。</span>
     </footer>
   </main>
 
-  <api-shim></api-shim>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
-    const STEPS = [
-      {
-        kicker: `STEP 01｜ご相談・条件の確認`,
-        title: `メールまたはチャットで条件を確認します`,
-        body: `ご希望のプラン（簡易LP／1ページサイト または カフェ向けホームページパッケージ）と、モニター枠（先着3店舗）の空き状況・条件を確認します。やり取りはすべてオンライン（メール／チャット）のみで、お電話での営業や催促は行いません。`
-      },
-      {
-        kicker: `STEP 02｜着手時のお支払い（50%）`,
-        title: `直接ご契約の場合は着手時に50%をお振り込みいただきます`,
-        body: `直接契約の場合は銀行振込にて、制作開始前に50%をお支払いいただきます（Coconala 等のプラットフォーム経由の場合は各プラットフォームの規約・支払い方法に従います）。なお、制作開始前（着手前）のキャンセルは全額返金いたします。`
-      },
-      {
-        kicker: `STEP 03｜写真・メニューなどの素材ご提供`,
-        title: `お店の写真やメニュー・料金表をご用意いただきます`,
-        body: `写真・メニュー・料金表などの素材は店舗さまからのご提供が原則です。Instagram にすでに公開されているお写真は、許可をいただければそのまま流用できます。素材がそろった時点から、納期のカウント（7〜10日／14〜21日）が始まります。`
-      },
-      {
-        kicker: `STEP 04｜制作作業（AI下地＋人の構成・確認）`,
-        title: `AIで下地を作り、人が構成と最終確認を行います`,
-        body: `簡易LPではスマホ最適化、電話・LINE・予約フォームへの導線設計、Googleマップ・Instagramリンク、検索向け基本設定（順位や集客数の保証はなし）を実装します。素材が足りない部分は AI 生成素材で補う場合があります。着手後のキャンセルは進行分を差し引いて返金となります。`
-      },
-      {
-        kicker: `STEP 05｜公開前のご確認・無料修正（1回）`,
-        title: `公開前に画面を確認し、軽微な修正を1回まで無料で対応します`,
-        body: `完成したサイトを事前にお確かめいただきます。文章の修正や写真の差し替えなど、軽微なものは1回まで無料修正に含まれます。全体の構成を大きく変更する場合は、別途お見積りとなります。`
-      },
-      {
-        kicker: `STEP 06｜公開（納品）・残金50%のお支払い`,
-        title: `サイトを公開し、直接契約の場合は残りの50%をお支払いいただきます`,
-        body: `公開（納品）完了後、直接契約の場合は残りの50%をお振り込みいただきます。AI生成素材を使った場合の権利上の注意点は納品時に説明文でお渡しします。モニター価格をご利用の場合は、制作事例としての紹介とひと言のご感想にご協力をお願いいたします。`
-      }
-    ];
-
     const SIM_PRICES = {
       lp: { monitor: 39000, regular: 54800, days: `7〜10日` },
       cafe: { monitor: 98000, regular: 148000, days: `14〜21日` }
@@ -1384,31 +1539,6 @@
 
     function formatYen(num) {
       return Number(num).toLocaleString(`ja-JP`);
-    }
-
-    function selectStep(index) {
-      if (index < 0 || index >= STEPS.length) return;
-      appState.activeStep = index;
-      renderStep();
-      persistState();
-    }
-
-    function renderStep() {
-      const idx = appState.activeStep;
-      for (let i = 0; i < STEPS.length; i++) {
-        const btn = document.getElementById(`step-btn-${i}`);
-        if (!btn) continue;
-        const isCurrent = i === idx;
-        btn.classList.toggle(`is-active`, isCurrent);
-        btn.setAttribute(`aria-selected`, isCurrent ? `true` : `false`);
-      }
-      const step = STEPS[idx];
-      const kickerEl = document.getElementById(`step-detail-kicker`);
-      const titleEl = document.getElementById(`step-detail-title`);
-      const bodyEl = document.getElementById(`step-detail-body`);
-      if (kickerEl) kickerEl.textContent = step.kicker;
-      if (titleEl) titleEl.textContent = step.title;
-      if (bodyEl) bodyEl.textContent = step.body;
     }
 
     function setSim(key, value) {
@@ -1551,70 +1681,44 @@
       if (status) status.textContent = `チェックをすべてリセットしました。`;
     }
 
-    function exportSummary() {
-      const s = appState.sim;
-      const planInfo = SIM_PRICES[s.plan] || SIM_PRICES.lp;
-      const total = planInfo[s.tier] || planInfo.monitor;
-      const planName = s.plan === `lp` ? `簡易LP／1ページサイト` : `カフェ向けホームページパッケージ`;
-      const tierName = s.tier === `monitor` ? `モニター価格（先着3店舗）` : `通常価格`;
-      const payName = s.pay === `direct`
-        ? `直接契約（銀行振込：着手時 ${formatYen(total / 2)}円 ／ 公開後 ${formatYen(total / 2)}円）`
-        : `プラットフォーム（Coconala 等）経由`;
-      const domainName = s.domain === `yes` ? `独自ドメインあり（年1,000〜2,000円程度の実費）` : `なし（基本月額0円）`;
-      const maintName = s.maint === `none`
-        ? `保守なし（月額0円）`
-        : (s.maint === `light` ? `ライト（月額3,000円／月2回まで）` : `標準（月額5,000円／月4回まで＋簡易レポート）`);
+    function showToast(message) {
+      const el = document.getElementById(`toast`);
+      if (!el) return;
+      el.textContent = message;
+      el.classList.add(`is-show`);
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(function () { el.classList.remove(`is-show`); }, 2400);
+    }
 
-      const checkTitles = [
-        `1. 希望プランの選択`,
-        `2. モニター条件（実績紹介・ひと言感想／Google口コミ不要）の確認`,
-        `3. お支払い条件とキャンセル規定の確認`,
-        `4. 素材（写真・メニュー・料金表／Instagram流用／AI補完）の確認`,
-        `5. 納期と無料修正（軽微なもの1回）の確認`,
-        `6. 公開後の基本月額0円・ドメイン・任意保守の確認`,
-        `7. オンラインのみ対応（電話営業なし）の確認`
-      ];
-
-      const checkLines = checkTitles.map(function (t, i) {
-        return `${appState.checks[i] ? `[済]` : `[未]`} ${t}`;
-      }).join(`\n`);
-
-      const content = [
-        `Studio Miraie ホームページ制作 ご確認メモ`,
-        `========================================`,
-        `希望プラン: ${planName}`,
-        `価格区分: ${tierName}`,
-        `制作費合計（税込）: ${formatYen(total)}円`,
-        `お支払い方法: ${payName}`,
-        `納期目安（素材揃い後）: ${planInfo.days}`,
-        `独自ドメイン: ${domainName}`,
-        `保守プラン: ${maintName}`,
-        ``,
-        `事前確認チェックリスト:`,
-        checkLines
-      ].join(`\n`);
-
-      const status = document.getElementById(`checklist-status`);
-      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
-        window.notebookAppApi.triggerFileDownload({
-          content: content,
-          contentType: `text/plain`,
-          encoding: `UTF-8`,
-          filename: `studio-miraie-checklist.txt`
-        });
-        if (status) status.textContent = `確認メモ（studio-miraie-checklist.txt）を保存しました。`;
-      } else {
-        const blob = new Blob([content], { type: `text/plain;charset=utf-8` });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement(`a`);
-        a.href = url;
-        a.download = `studio-miraie-checklist.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        if (status) status.textContent = `確認メモ（studio-miraie-checklist.txt）をダウンロードしました。`;
+    function copyText(text) {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === `function`) {
+        return navigator.clipboard.writeText(text);
       }
+      return new Promise(function (resolve, reject) {
+        const ta = document.createElement(`textarea`);
+        ta.value = text;
+        ta.setAttribute(`readonly`, ``);
+        ta.style.position = `fixed`;
+        ta.style.opacity = `0`;
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand(`copy`); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        if (ok) { resolve(); } else { reject(new Error(`copy failed`)); }
+      });
+    }
+
+    function copyConsultText() {
+      const planName = appState.sim.plan === `lp` ? `簡易LP／1ページサイト` : `カフェ向けホームページパッケージ`;
+      const text = `ホームページ制作の相談です。${planName}を検討しています。お店の名前は［ ］、業種は［ ］です。詳しい進め方を教えてください。`;
+      copyText(text).then(function () {
+        showToast(`相談文をコピーしました`);
+        const status = document.getElementById(`checklist-status`);
+        if (status) status.textContent = `相談文をコピーしました。Instagram のメッセージに貼り付けてお使いください。`;
+      }).catch(function () {
+        showToast(`コピーできませんでした。お手数ですが手入力でお願いします`);
+      });
     }
 
     async function persistState() {
@@ -1666,7 +1770,6 @@
         }
       }
 
-      renderStep();
       renderSimulator();
       renderChecklist();
       initScrollReveal();
