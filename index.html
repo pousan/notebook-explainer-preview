@@ -559,7 +559,9 @@
     .toast.is-show { opacity: 1; transform: translate(-50%, 0); }
 
     @media (min-width: 821px) {
-      .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-xl); align-items: center; }
+      .hero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-xl); align-items: stretch; }
+      .hero-visual { align-items: stretch; max-height: none; padding-top: 24px; }
+      .hero-visual .phone-frame { height: 100%; max-height: none; aspect-ratio: auto; }
     }
 
     /* Interactive Cost Simulator */
